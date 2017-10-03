@@ -1,0 +1,5 @@
+# a git commit that puts a more interesting message in the commit
+git add . 
+message="$(/usr/local/bin/fortune -s)"
+git commit -m "$message"
+git push -f origin master

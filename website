@@ -1,0 +1,30 @@
+#get project name
+echo "name of website"
+read website
+echo "creating $website"
+
+# create directories
+mkdir $website
+mkdir $website/js
+mkdir $website/image
+mkdir $website/css
+echo "made directories for $website"
+
+# create css & js
+touch $website/css/style.css
+touch $website/js/javascript.js
+touch $website/index.html
+echo "made empty files for $website"
+
+# setup git
+cd $website
+git init
+echo "new site for $website" > README.md
+git add .
+git commit -m "first commit for $website"
+curl -u "softeyes" https://api.github.com/user/repos -d "{\"name\":\"$website\"}"
+git remote add origin git@github.com:softeyes/$website.git
+git push origin master
+echo "finished setting up git repository for $website at https://github.com/softeyes/$website"
+
+sublime .

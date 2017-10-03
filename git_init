@@ -1,0 +1,25 @@
+# script to initialise git, set up a repository on git up,
+
+# get PWD without the whole path, ie just the project name
+repo="$(basename $PWD)"
+echo $repo
+# start a git repo. write a simple README
+git init
+echo "new site for $repo" > README.md
+
+# add everything
+git add .
+
+# commit everything
+git commit -m "first commit for $repo"
+
+# uses the github api to create the repo
+curl -u "softeyes:865c4160b7d687c34dd0e535a53ec74a0358d288" https://api.github.com/user/repos -d "{\"name\":\"$repo\"}"
+
+# add repo to local git
+git remote add origin git@github.com:softeyes/$repo.git
+
+# push from local to remote
+git push origin master
+
+echo "finished setting up git repository for $repo at https://github.com/softeyes/$repo"
